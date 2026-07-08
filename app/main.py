@@ -11,6 +11,6 @@ app.include_router(resume_router)
 
 @app.get("/")
 def home():
-    return {"message":"welocome to AI resume screening System"}
+    return {"message":"welcome to AI resume screening System"}
 
 
