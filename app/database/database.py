@@ -16,3 +16,14 @@ engine = create_engine(DATABASE_URL , echo=True)  # Create the SQLAlchemy engine
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
+def get_db():
+    """
+    Dependency function to get a database session.
+    This function can be used in FastAPI routes to provide a database session.
+    """
+    db = SessionLocal()  # Create a new database session
+    try:
+        yield db  # Yield the session to the caller
+    finally:
+        db.close()  # Ensure the session is closed after use
+
