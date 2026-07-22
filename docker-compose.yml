@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+
+
+
+   api:
+    build:
+      container_name: resume-screening-api
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - .env
+
+    depends_on:
+      - postgres
+
+
+    volumes:
+       -./uploads:/app/uploads
+       -./faiss_index:/app/faiss_index
+
+    restart: unless-stopped
+
+  postgres:
+    image:postgres:16
+
+    container_name: postgres-db
+
+    environment:
+      POSTGRES_DB: resume_screening
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password     
+
+    ports:
+      - "5432:5432"
+
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:         
